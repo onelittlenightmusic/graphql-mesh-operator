@@ -1,0 +1,7 @@
+domain: graphqlgw.io
+repo: graphqlgw.io/oprator
+resources:
+- group: gw
+  kind: GraphqlGateway
+  version: v1
+version: "2"

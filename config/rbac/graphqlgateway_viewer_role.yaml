@@ -1,0 +1,20 @@
+# permissions for end users to view graphqlgateways.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: graphqlgateway-viewer-role
+rules:
+- apiGroups:
+  - gw.graphqlgw.io
+  resources:
+  - graphqlgateways
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - gw.graphqlgw.io
+  resources:
+  - graphqlgateways/status
+  verbs:
+  - get

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      test: "true"
+  template:
+    metadata:
+      labels:
+        test: "true"
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+      #   volumeMounts:
+      #   - mountPath: /var/run/secrets/tokens
+      #     name: token
+      # volumes:
+      # - name: token
+      #   projected:
+      #     sources:
+      #     - serviceAccountToken:
+      #         path: token

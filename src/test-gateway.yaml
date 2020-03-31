@@ -1,0 +1,11 @@
+apiVersion: gw.graphqlgw.io/v1
+kind: GraphqlGateway
+metadata:
+  name: sample-gateaway
+spec:
+  meshrc:
+    sources:
+    - name: Wiki
+      handler:
+      openapi:
+        source: https://api.apis.guru/v2/specs/wikimedia.org/1.0.0/swagger.yaml

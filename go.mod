@@ -1,4 +1,4 @@
-module graphqlgw.io/oprator
+module graphql-mesh-operator.io
 
 go 1.13
 

@@ -26,8 +26,8 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	gwv1 "graphqlgw.io/oprator/api/v1"
-	"graphqlgw.io/oprator/controllers"
+	meshv1alpha1 "graphql-mesh-operator.io/api/v1alpha1"
+	"graphql-mesh-operator.io/controllers"
 	// +kubebuilder:scaffold:imports
 )
 
@@ -39,7 +39,7 @@ var (
 func init() {
 	_ = clientgoscheme.AddToScheme(scheme)
 
-	_ = gwv1.AddToScheme(scheme)
+	_ = meshv1alpha1.AddToScheme(scheme)
 	// +kubebuilder:scaffold:scheme
 }
 
@@ -59,19 +59,19 @@ func main() {
 		MetricsBindAddress: metricsAddr,
 		Port:               9443,
 		LeaderElection:     enableLeaderElection,
-		LeaderElectionID:   "4642b4ba.graphqlgw.io",
+		LeaderElectionID:   "d0bbf48f.graphql-mesh-operator.io",
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")
 		os.Exit(1)
 	}
 
-	if err = (&controllers.GraphqlGatewayReconciler{
+	if err = (&controllers.GraphqlMeshReconciler{
 		Client: mgr.GetClient(),
-		Log:    ctrl.Log.WithName("controllers").WithName("GraphqlGateway"),
+		Log:    ctrl.Log.WithName("controllers").WithName("GraphqlMesh"),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
-		setupLog.Error(err, "unable to create controller", "controller", "GraphqlGateway")
+		setupLog.Error(err, "unable to create controller", "controller", "GraphqlMesh")
 		os.Exit(1)
 	}
 	// +kubebuilder:scaffold:builder

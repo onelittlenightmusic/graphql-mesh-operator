@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1
+package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -23,41 +23,41 @@ import (
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
-// GraphqlGatewaySpec defines the desired state of GraphqlGateway
-type GraphqlGatewaySpec struct {
+// GraphqlMeshSpec defines the desired state of GraphqlMesh
+type GraphqlMeshSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of GraphqlGateway. Edit GraphqlGateway_types.go to remove/update
+	// Foo is an example field of GraphqlMesh. Edit GraphqlMesh_types.go to remove/update
 	Foo string `json:"foo,omitempty"`
 }
 
-// GraphqlGatewayStatus defines the observed state of GraphqlGateway
-type GraphqlGatewayStatus struct {
+// GraphqlMeshStatus defines the observed state of GraphqlMesh
+type GraphqlMeshStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 }
 
 // +kubebuilder:object:root=true
 
-// GraphqlGateway is the Schema for the graphqlgateways API
-type GraphqlGateway struct {
+// GraphqlMesh is the Schema for the graphqlmeshes API
+type GraphqlMesh struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   GraphqlGatewaySpec   `json:"spec,omitempty"`
-	Status GraphqlGatewayStatus `json:"status,omitempty"`
+	Spec   GraphqlMeshSpec   `json:"spec,omitempty"`
+	Status GraphqlMeshStatus `json:"status,omitempty"`
 }
 
 // +kubebuilder:object:root=true
 
-// GraphqlGatewayList contains a list of GraphqlGateway
-type GraphqlGatewayList struct {
+// GraphqlMeshList contains a list of GraphqlMesh
+type GraphqlMeshList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []GraphqlGateway `json:"items"`
+	Items           []GraphqlMesh `json:"items"`
 }
 
 func init() {
-	SchemeBuilder.Register(&GraphqlGateway{}, &GraphqlGatewayList{})
+	SchemeBuilder.Register(&GraphqlMesh{}, &GraphqlMeshList{})
 }

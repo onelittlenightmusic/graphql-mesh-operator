@@ -1,7 +1,0 @@
-apiVersion: gw.graphqlgw.io/v1
-kind: GraphqlGateway
-metadata:
-  name: graphqlgateway-sample
-spec:
-  # Add fields here
-  foo: bar

@@ -1,0 +1,20 @@
+# permissions for end users to view graphqlmeshes.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: graphqlmesh-viewer-role
+rules:
+- apiGroups:
+  - mesh.graphql-mesh-operator.io
+  resources:
+  - graphqlmeshes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - mesh.graphql-mesh-operator.io
+  resources:
+  - graphqlmeshes/status
+  verbs:
+  - get

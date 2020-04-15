@@ -24,30 +24,30 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 
-	gwv1 "graphqlgw.io/oprator/api/v1"
+	meshv1alpha1 "graphql-mesh-operator.io/api/v1alpha1"
 )
 
-// GraphqlGatewayReconciler reconciles a GraphqlGateway object
-type GraphqlGatewayReconciler struct {
+// GraphqlMeshReconciler reconciles a GraphqlMesh object
+type GraphqlMeshReconciler struct {
 	client.Client
 	Log    logr.Logger
 	Scheme *runtime.Scheme
 }
 
-// +kubebuilder:rbac:groups=gw.graphqlgw.io,resources=graphqlgateways,verbs=get;list;watch;create;update;patch;delete
-// +kubebuilder:rbac:groups=gw.graphqlgw.io,resources=graphqlgateways/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=mesh.graphql-mesh-operator.io,resources=graphqlmeshes,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=mesh.graphql-mesh-operator.io,resources=graphqlmeshes/status,verbs=get;update;patch
 
-func (r *GraphqlGatewayReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
+func (r *GraphqlMeshReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error) {
 	_ = context.Background()
-	_ = r.Log.WithValues("graphqlgateway", req.NamespacedName)
+	_ = r.Log.WithValues("graphqlmesh", req.NamespacedName)
 
 	// your logic here
 
 	return ctrl.Result{}, nil
 }
 
-func (r *GraphqlGatewayReconciler) SetupWithManager(mgr ctrl.Manager) error {
+func (r *GraphqlMeshReconciler) SetupWithManager(mgr ctrl.Manager) error {
 	return ctrl.NewControllerManagedBy(mgr).
-		For(&gwv1.GraphqlGateway{}).
+		For(&meshv1alpha1.GraphqlMesh{}).
 		Complete(r)
 }

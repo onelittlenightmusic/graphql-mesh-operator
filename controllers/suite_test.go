@@ -30,7 +30,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	gwv1 "graphqlgw.io/oprator/api/v1"
+	meshv1alpha1 "graphql-mesh-operator.io/api/v1alpha1"
 	// +kubebuilder:scaffold:imports
 )
 
@@ -62,7 +62,7 @@ var _ = BeforeSuite(func(done Done) {
 	Expect(err).ToNot(HaveOccurred())
 	Expect(cfg).ToNot(BeNil())
 
-	err = gwv1.AddToScheme(scheme.Scheme)
+	err = meshv1alpha1.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
 
 	// +kubebuilder:scaffold:scheme

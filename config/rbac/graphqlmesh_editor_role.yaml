@@ -1,13 +1,13 @@
-# permissions for end users to edit graphqlgateways.
+# permissions for end users to edit graphqlmeshes.
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: graphqlgateway-editor-role
+  name: graphqlmesh-editor-role
 rules:
 - apiGroups:
-  - gw.graphqlgw.io
+  - mesh.graphql-mesh-operator.io
   resources:
-  - graphqlgateways
+  - graphqlmeshes
   verbs:
   - create
   - delete
@@ -17,8 +17,8 @@ rules:
   - update
   - watch
 - apiGroups:
-  - gw.graphqlgw.io
+  - mesh.graphql-mesh-operator.io
   resources:
-  - graphqlgateways/status
+  - graphqlmeshes/status
   verbs:
   - get

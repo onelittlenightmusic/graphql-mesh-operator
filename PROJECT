@@ -1,7 +1,7 @@
-domain: graphqlgw.io
-repo: graphqlgw.io/oprator
+domain: graphql-mesh-operator.io
+repo: graphql-mesh-operator.io
 resources:
-- group: gw
-  kind: GraphqlGateway
-  version: v1
+- group: mesh
+  kind: GraphqlMesh
+  version: v1alpha1
 version: "2"

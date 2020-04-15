@@ -1,0 +1,7 @@
+apiVersion: mesh.graphql-mesh-operator.io/v1alpha1
+kind: GraphqlMesh
+metadata:
+  name: graphqlmesh-sample
+spec:
+  # Add fields here
+  foo: bar

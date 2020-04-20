@@ -30,9 +30,9 @@ spec:
       handler:
       openapi:
         source: https://api.apis.guru/v2/specs/wikimedia.org/1.0.0/swagger.yaml
-  meshrc-configmap:
+  meshrcConfigMap:
     configMapName: test-configmap
-  meshrc-secret:
+  meshrcSecret:
     secretName: test-secret
 ```
 

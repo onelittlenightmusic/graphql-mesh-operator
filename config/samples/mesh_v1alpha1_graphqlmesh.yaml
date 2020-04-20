@@ -4,4 +4,13 @@ metadata:
   name: graphqlmesh-sample
 spec:
   # Add fields here
-  foo: bar
+  meshrc:
+    sources:
+    - name: Wiki
+      handler:
+      openapi:
+        source: https://api.apis.guru/v2/specs/wikimedia.org/1.0.0/swagger.yaml
+  meshrcConfigMap:
+    configMapName: test-configmap
+  meshrcSecret:
+    secretName: test-secret

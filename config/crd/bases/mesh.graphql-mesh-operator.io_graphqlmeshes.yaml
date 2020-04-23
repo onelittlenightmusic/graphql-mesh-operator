@@ -35,11 +35,7 @@ spec:
           description: GraphqlMeshSpec defines the desired state of GraphqlMesh
           properties:
             meshrc:
-              description: RawMessage is a raw encoded JSON value. It implements Marshaler
-                and Unmarshaler and can be used to delay JSON decoding or precompute
-                a JSON encoding.
-              format: byte
-              type: string
+              type: object
             meshrcConfigMap:
               properties:
                 configMapName:
@@ -57,6 +53,14 @@ spec:
           type: object
         status:
           description: GraphqlMeshStatus defines the observed state of GraphqlMesh
+          properties:
+            deploymentStatus:
+              type: string
+            meshStatus:
+              type: string
+          required:
+          - deploymentStatus
+          - meshStatus
           type: object
       type: object
   version: v1alpha1

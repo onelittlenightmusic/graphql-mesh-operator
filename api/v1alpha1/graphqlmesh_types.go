@@ -16,20 +16,21 @@ limitations under the License.
 package v1alpha1
 
 import (
-	json "encoding/json"
+	// json "encoding/json"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
 // NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
 
 // type MeshRc struct {
-// 	Data map[string]interface{} `json:"test,"`
+// 	// Data map[string]interface{} `json:"-"`
 // }
 
 // GraphqlMeshSpec defines the desired state of GraphqlMesh
 type GraphqlMeshSpec struct {
-	Rc          json.RawMessage        `json:"meshrc,omitempty"`
+	Rc          runtime.RawExtension   `json:"meshrc,omitempty"`
 	RcConfigMap GraphqlMeshRcConfigMap `json:"meshrcConfigMap,omitempty"`
 	RcSecret    GraphqlMeshRcSecret    `json:"meshrcSecret,omitempty"`
 }
@@ -60,8 +61,8 @@ type GraphqlMeshRcSecret struct {
 
 // GraphqlMeshStatus defines the observed state of GraphqlMesh
 type GraphqlMeshStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	DeploymentStatus string `json:"deploymentStatus"`
+	MeshStatus       string `json:"meshStatus"`
 }
 
 // +kubebuilder:object:root=true

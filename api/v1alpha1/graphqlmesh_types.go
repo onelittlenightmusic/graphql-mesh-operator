@@ -21,18 +21,12 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
-// type MeshRc struct {
-// 	// Data map[string]interface{} `json:"-"`
-// }
-
 // GraphqlMeshSpec defines the desired state of GraphqlMesh
 type GraphqlMeshSpec struct {
-	Rc          runtime.RawExtension   `json:"meshrc,omitempty"`
-	RcConfigMap GraphqlMeshRcConfigMap `json:"meshrcConfigMap,omitempty"`
-	RcSecret    GraphqlMeshRcSecret    `json:"meshrcSecret,omitempty"`
+	MeshRc          runtime.RawExtension   `json:"meshrc,omitempty"`
+	DataSourceNames []string               `json:"dataSourceNames,omitempty"`
+	RcConfigMap     GraphqlMeshRcConfigMap `json:"meshrcConfigMap,omitempty"`
+	RcSecret        GraphqlMeshRcSecret    `json:"meshrcSecret,omitempty"`
 }
 
 type GraphqlMeshRcConfigMap struct {
@@ -43,29 +37,17 @@ type GraphqlMeshRcSecret struct {
 	SecretName string `json:"secretName"`
 }
 
-// // MarshalJSON marshals the MeshRc data to a JSON blob.
-// func (v MeshRc) MarshalJSON() ([]byte, error) {
-// 	return json.Marshal(v.Data)
-// }
-
-// // UnmarshalJSON sets the MeshRc to a copy of data.
-// func (v *MeshRc) UnmarshalJSON(data []byte) error {
-// 	var out map[string]interface{}
-// 	err := json.Unmarshal(data, &out)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	v.Data = out
-// 	return nil
-// }
-
 // GraphqlMeshStatus defines the observed state of GraphqlMesh
 type GraphqlMeshStatus struct {
 	DeploymentStatus string `json:"deploymentStatus"`
 	MeshStatus       string `json:"meshStatus"`
+	Endpoint         string `json:"endpoint"`
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:printcolumn:name="Endpoint",type=string,JSONPath=`.status.endpoint`
+// +kubebuilder:printcolumn:name="Status",type=string,JSONPath=`.status.meshStatus`
+// +kubebuilder:printcolumn:name="Datasource",type=string,JSONPath=`.spec.meshrc.sources[0].name`
 
 // GraphqlMesh is the Schema for the graphqlmeshes API
 type GraphqlMesh struct {

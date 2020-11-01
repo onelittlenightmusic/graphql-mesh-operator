@@ -1,24 +1,21 @@
 apiVersion: mesh.graphql-mesh-operator.io/v1alpha1
 kind: GraphqlMesh
 metadata:
-  name: sample
+  name: git
 spec:
-  dataSourceNames:
-  - wiki
   # meshrc:
-  #   description: "test"
-    # sources:
-    # - name: wiki
-      # handler:
-      #   openapi:
-      #     source: https://api.apis.guru/v2/specs/wikimedia.org/1.0.0/swagger.yaml
+  #   sources:
+  #   - name: Wiki
+  #     handler:
+  #       openapi:
+  #         source: https://api.apis.guru/v2/specs/wikimedia.org/1.0.0/swagger.yaml
   # meshrcConfigMap:
   #   configMapName: test-configmap
   # meshrcSecret:
   #   secretName: test-secret
-  # meshGitRepo:
+  meshGitRepo:
     # repository: https://github.com/Urigo/graphql-mesh/
     # revision: 209f86ef1e31d30b3f3a348dc813c3c46a3d65ac
     # subPath: examples/json-schema-covid
-    # repository: https://github.com/jycouet/covid-mesh
-    # revision: 660b786f5459529f69f02e141c31a006f736553f
+    repository: https://github.com/jycouet/covid-mesh
+    revision: 660b786f5459529f69f02e141c31a006f736553f

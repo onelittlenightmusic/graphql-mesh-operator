@@ -75,6 +75,14 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "GraphqlMesh")
 		os.Exit(1)
 	}
+	if err = (&controllers.DataSourceReconciler{
+		Client: mgr.GetClient(),
+		Log:    ctrl.Log.WithName("controllers").WithName("DataSource"),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "DataSource")
+		os.Exit(1)
+	}
 	// +kubebuilder:scaffold:builder
 
 	setupLog.Info("starting manager")

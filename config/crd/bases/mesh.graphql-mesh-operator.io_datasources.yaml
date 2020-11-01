@@ -6,29 +6,26 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.2.5
   creationTimestamp: null
-  name: graphqlmeshes.mesh.graphql-mesh-operator.io
+  name: datasources.mesh.graphql-mesh-operator.io
 spec:
   additionalPrinterColumns:
-  - JSONPath: .status.endpoint
-    name: Endpoint
+  - JSONPath: .spec.type
+    name: Type
     type: string
-  - JSONPath: .status.meshStatus
-    name: Status
-    type: string
-  - JSONPath: .spec.meshrc.sources[0].name
-    name: Datasource
+  - JSONPath: .spec.schema
+    name: Schema
     type: string
   group: mesh.graphql-mesh-operator.io
   names:
-    kind: GraphqlMesh
-    listKind: GraphqlMeshList
-    plural: graphqlmeshes
-    singular: graphqlmesh
+    kind: DataSource
+    listKind: DataSourceList
+    plural: datasources
+    singular: datasource
   scope: Namespaced
   subresources: {}
   validation:
     openAPIV3Schema:
-      description: GraphqlMesh is the Schema for the graphqlmeshes API
+      description: DataSource is the Schema for the datasources API
       properties:
         apiVersion:
           description: 'APIVersion defines the versioned schema of this representation
@@ -43,42 +40,21 @@ spec:
         metadata:
           type: object
         spec:
-          description: GraphqlMeshSpec defines the desired state of GraphqlMesh
           properties:
-            dataSourceNames:
-              items:
-                type: string
-              type: array
-            meshrc:
+            handlerConfig:
               type: object
-            meshrcConfigMap:
-              properties:
-                configMapName:
-                  type: string
-              required:
-              - configMapName
-              type: object
-            meshrcSecret:
-              properties:
-                secretName:
-                  type: string
-              required:
-              - secretName
-              type: object
-          type: object
-        status:
-          description: GraphqlMeshStatus defines the observed state of GraphqlMesh
-          properties:
-            deploymentStatus:
-              type: string
-            endpoint:
-              type: string
-            meshStatus:
+            type:
               type: string
           required:
-          - deploymentStatus
-          - endpoint
-          - meshStatus
+          - type
+          type: object
+        status:
+          description: DataSourceStatus defines the observed state of DataSource
+          properties:
+            schema:
+              type: string
+          required:
+          - schema
           type: object
       type: object
   version: v1alpha1

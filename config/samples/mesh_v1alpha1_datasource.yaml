@@ -1,0 +1,10 @@
+apiVersion: mesh.graphql-mesh-operator.io/v1alpha1
+kind: DataSource
+metadata:
+  name: kubernetes-graphql
+spec:
+  type: openapi
+  handlerConfig:
+    source: /work/swagger.json
+    baseUrl: http://mesh-svc:8001/
+    skipSchemaValidation: true

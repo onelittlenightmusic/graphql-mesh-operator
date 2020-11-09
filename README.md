@@ -92,7 +92,15 @@ spec:
   - sample
 ```
 
-## Build and run
+## Installation
+
+Simply run on this kubernetes environment.
+
+```sh
+kubectl apply -f https://raw.githubusercontent.com/onelittlenightmusic/graphql-mesh-operator/master/install.yaml
+```
+
+## Build and run by yourself
 
 ```sh
 make install

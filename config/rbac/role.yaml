@@ -7,6 +7,66 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - configmaps/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - services
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - services/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
   - mesh.graphql-mesh-operator.io
   resources:
   - datasources
@@ -22,6 +82,26 @@ rules:
   - mesh.graphql-mesh-operator.io
   resources:
   - datasources/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - mesh.graphql-mesh-operator.io
+  resources:
+  - graphqlmeshes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - mesh.graphql-mesh-operator.io
+  resources:
+  - graphqlmeshes/status
   verbs:
   - get
   - patch

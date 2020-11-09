@@ -100,6 +100,12 @@ Simply run on this kubernetes environment.
 kubectl apply -f https://raw.githubusercontent.com/onelittlenightmusic/graphql-mesh-operator/master/install.yaml
 ```
 
+## Tear down 
+
+```sh
+kubectl delete -f https://raw.githubusercontent.com/onelittlenightmusic/graphql-mesh-operator/master/install.yaml
+```
+
 ## Build and run by yourself
 
 ```sh

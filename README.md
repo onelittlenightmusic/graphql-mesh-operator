@@ -14,9 +14,11 @@ Apr/2020, Only design. Not complete.
     - Configure `.meshrc.yaml` to set bearer token
     - Expose GraphQL Mesh endpoints to outside Kuberntes
 
-## Interface
+## Interface `GraphqlMesh`
 
 You can add new GraphQL mesh instance on Kubernetes with this resource.
+`GraphqlMesh` is a resource for definition of an entrypoints of GraphQL Mesh.
+When you define one `GraphqlMesh`, this operator creates one GraphQL Mesh server.
 
 ```yaml
 apiVersion: graphql-mesh-operator.io
@@ -36,7 +38,61 @@ spec:
     secretName: test-secret
 ```
 
-## Build
+`meshrc` value should be the same as original GraphQL Mesh `.meshrc.yaml` file described [here](https://graphql-mesh.com/docs/getting-started/basic-example/).
+
+## Advanced interface `DataSource`
+
+In this advanced usage, you can organize `meshrc` automatically.
+
+`GraphqlMesh` resource can include many separate `DataSource` resources, which defines data source to GraphQL Mesh server. And this `DataSource` is reusable in many GraphQL Mesh servers.
+
+```yaml
+apiVersion: mesh.graphql-mesh-operator.io/v1alpha1
+kind: GraphqlMesh
+metadata:
+  name: sample
+spec:
+  dataSourceNames:
+  - wiki
+```
+
+```yaml
+apiVersion: mesh.graphql-mesh-operator.io/v1alpha1
+kind: DataSource
+metadata:
+  name: wiki
+spec:
+  type: openapi
+  handlerConfig:
+    source:  https://api.apis.guru/v2/specs/wikimedia.org/1.0.0/swagger.yaml
+```
+
+Additionally, `GraphqlMesh` itself can be `DataSource` as well. You can set `asNewDataSource` flag in `GraphqlMesh`.
+
+```yaml
+Version: mesh.graphql-mesh-operator.io/v1alpha1
+kind: GraphqlMesh
+metadata:
+  name: sample
+spec:
+  dataSourceNames:
+  - wiki
+  asNewDataSource: true
+```
+
+Then you can use this `DataSource` name in new `GraphqlMesh` like this.
+
+```yaml
+Version: mesh.graphql-mesh-operator.io/v1alpha1
+kind: GraphqlMesh
+metadata:
+  name: sample-wrapper
+spec:
+  dataSourceNames:
+  - sample
+```
+
+## Build and run
 
 ```sh
 make install

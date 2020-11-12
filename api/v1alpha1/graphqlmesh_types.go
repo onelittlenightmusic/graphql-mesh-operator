@@ -27,6 +27,7 @@ type GraphqlMeshSpec struct {
 	DataSourceNames []string               `json:"dataSourceNames,omitempty"`
 	RcConfigMap     GraphqlMeshRcConfigMap `json:"meshrcConfigMap,omitempty"`
 	RcSecret        GraphqlMeshRcSecret    `json:"meshrcSecret,omitempty"`
+	AsNewDataSource bool                   `json:"asNewDataSource,omitempty"`
 }
 
 type GraphqlMeshRcConfigMap struct {

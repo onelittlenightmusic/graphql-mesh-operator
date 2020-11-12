@@ -123,6 +123,22 @@ func (r *GraphqlMeshReconciler) Reconcile(req ctrl.Request) (ctrl.Result, error)
 		graphqlMesh.Status.Endpoint = fmt.Sprintf("%s.%s.svc.cluster.local", serviceName, graphqlMesh.Namespace)
 		r.Update(ctx, &graphqlMesh)
 	}
+
+	if graphqlMesh.Spec.AsNewDataSource {
+		nameForNewDataSource := fmt.Sprintf("%s-datasource", graphqlMesh.Name)
+		var newDataSource meshv1alpha1.DataSource
+		if err := r.Get(ctx, client.ObjectKey{Namespace: graphqlMesh.Namespace, Name: nameForNewDataSource}, &newDataSource); apierrors.IsNotFound(err) {
+			if err := r.constructDataSource(&graphqlMesh, nameForNewDataSource, &newDataSource); err != nil {
+				log.Error(err, "unable to construct ConfigMap for meshrc")
+				return ctrl.Result{}, err
+			}
+
+			if err := r.Create(ctx, &newDataSource); err != nil {
+				log.Error(err, "unable to create new DataSource pointing at GraphqlMesh", "dataSource", newDataSource)
+				return ctrl.Result{}, err
+			}
+		}
+	}
 	return ctrl.Result{}, nil
 }
 
@@ -141,6 +157,7 @@ func (r *GraphqlMeshReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		Owns(&appsv1.Deployment{}).
 		Owns(&corev1.ConfigMap{}).
 		Owns(&corev1.Service{}).
+		Owns(&meshv1alpha1.DataSource{}). // for asNewDataSource flag
 		Complete(r)
 }
 
@@ -285,14 +302,7 @@ func (r *GraphqlMeshReconciler) constructMeshrc(graphqlMesh *meshv1alpha1.Graphq
 			if err := r.Get(ctx, client.ObjectKey{Namespace: graphqlMesh.Namespace, Name: dataSourceName}, &dataSource); err != nil {
 				return err
 			}
-			sources = append(sources,
-				map[string]interface{}{
-					"name": dataSourceName,
-					"handler": map[string]interface{}{
-						dataSource.Spec.Type: &dataSource.Spec.HandlerConfig,
-					},
-				},
-			)
+			sources = append(sources, dataSource.Dump())
 		}
 
 		returnMesh = map[string]interface{}{
@@ -342,4 +352,28 @@ func merge(x1, x2 interface{}) interface{} {
 		}
 	}
 	return x1
+}
+
+func (r *GraphqlMeshReconciler) constructDataSource(graphqlMesh *meshv1alpha1.GraphqlMesh, name string, dataSource *meshv1alpha1.DataSource) error {
+	byt, _ := json.Marshal(map[string]string{
+		"endpoint": graphqlMesh.Status.Endpoint,
+	})
+	newDataSource := meshv1alpha1.DataSource{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      name,
+			Namespace: graphqlMesh.Namespace,
+		},
+		Spec: meshv1alpha1.DataSourceSpec{
+			Type: "graphql",
+			HandlerConfig: runtime.RawExtension{
+				Raw: byt,
+			},
+		},
+	}
+
+	if err := ctrl.SetControllerReference(graphqlMesh, &newDataSource, r.Scheme); err != nil {
+		return err
+	}
+	*dataSource = newDataSource
+	return nil
 }

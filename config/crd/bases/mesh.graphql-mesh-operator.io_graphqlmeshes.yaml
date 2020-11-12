@@ -45,6 +45,8 @@ spec:
         spec:
           description: GraphqlMeshSpec defines the desired state of GraphqlMesh
           properties:
+            asNewDataSource:
+              type: boolean
             dataSourceNames:
               items:
                 type: string

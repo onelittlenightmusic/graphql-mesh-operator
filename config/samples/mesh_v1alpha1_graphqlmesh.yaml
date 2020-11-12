@@ -5,6 +5,7 @@ metadata:
 spec:
   dataSourceNames:
   - wiki
+  asNewDataSource: true
   # meshrc:
   #   description: "test"
     # sources:

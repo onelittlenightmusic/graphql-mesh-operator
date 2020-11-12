@@ -56,3 +56,12 @@ type DataSourceList struct {
 func init() {
 	SchemeBuilder.Register(&DataSource{}, &DataSourceList{})
 }
+
+func (d *DataSource) Dump() map[string]interface{} {
+	return map[string]interface{}{
+		"name": d.Name,
+		"handler": map[string]interface{}{
+			d.Spec.Type: &d.Spec.HandlerConfig,
+		},
+	}
+}
